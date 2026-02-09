@@ -1,0 +1,54 @@
+---
+layout: base
+title: Technical Articles - Rohit Srivastava
+---
+
+<section class="blog-hero">
+    <div class="hero-content">
+        <h1>Technical Articles</h1>
+        <p>Exploring best practices in full-stack development, architecture, and emerging technologies</p>
+    </div>
+</section>
+
+<section class="container blog-listing">
+    <div class="blog-grid">
+        {% for post in collections.blog %}
+            <article class="blog-card">
+                <div class="blog-card-header">
+                    {% if post.data.image %}
+                        <img src="{{ post.data.image }}" alt="{{ post.data.title }}" class="blog-card-image">
+                    {% else %}
+                        <div class="blog-card-placeholder">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="blog-card-content">
+                    <h3 class="blog-card-title">
+                        <a href="{{ post.url }}">{{ post.data.title }}</a>
+                    </h3>
+                    <p class="blog-card-excerpt">{{ post.data.excerpt }}</p>
+                    <div class="blog-card-meta">
+                        <span class="date"><i class="fas fa-calendar-alt"></i> {{ post.date | dateFilter }}</span>
+                        {% if post.data.tags %}
+                            <span class="tags">
+                                {% for tag in post.data.tags %}
+                                    {% if tag != "blog" %}
+                                        <span class="tag">#{{ tag }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <a href="{{ post.url }}" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+    
+    {% if collections.blog.length === 0 %}
+        <div class="no-articles">
+            <p>More articles coming soon!</p>
+        </div>
+    {% endif %}
+</section>
